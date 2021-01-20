@@ -24,11 +24,14 @@ import {Component} from 'vue-property-decorator';
     flex-direction: column;
     .layout-wrapper {
       flex-grow: 1;
+      overflow: auto;
+      background: #F5F5F5;
+
     }
     .nav {
+      display: flex;
       height: 50px;
-      background-color: #fff;
-      box-shadow: 0 0 0 1px #e4dcdc;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
     }
   }
 

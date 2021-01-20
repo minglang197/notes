@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <router-link to="/bill" active-class="selected"><Icon class="icon" name="bill"/><span>明细</span></router-link>
+    <router-link to="/bill" active-class="selected"><Icon class="icon" name="lights"/><span>明细</span></router-link>
     <router-link to="/money" active-class="selected"><Icon class="icon" name = "money"/><span>记账</span></router-link>
     <router-link to="/echart" active-class="selected"><Icon class="icon" name="echart"/><span>图表</span></router-link>
   </nav>

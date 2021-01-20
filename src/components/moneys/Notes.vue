@@ -5,7 +5,7 @@
         <Icon name="note"></Icon>
         <span>备注:</span>
       </span>
-      <input v-model="value" placeholder="请输入备注，最多八个字" maxlength="8" class="note-right"/>
+      <input v-model="value" placeholder="请输入备注，最多十个字" maxlength="10" class="note-right"/>
     </label>
   </div>
 </template>

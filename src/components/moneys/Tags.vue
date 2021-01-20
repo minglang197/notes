@@ -1,11 +1,11 @@
 <template>
     <div class="tag">
       <ul>
-        <li v-for="(item,index) in tagList" :key="index" >
-          <span :class="{active: index === current}" @click="toggle(index)">
-            <Icons :name="item.name"></Icons>
+        <li v-for="(tag,index) in tagList" :key="index" @click="select(tag)">
+          <span :class="{'selected': tag.name === selectedTag.name}" >
+            <Icons :name="tag.name"></Icons>
           </span>
-          <p>{{item.value}}</p>
+          <p>{{tag.value}}</p>
         </li>
       </ul>
   </div>
@@ -19,15 +19,12 @@ import {Component,Prop} from 'vue-property-decorator';
 @Component({components:{Icons}})
 export default class Tags extends Vue {
   @Prop({required: true})tagList!: TagItem
+  @Prop({required: true, type: Object}) selectedTag!: TagItem;
 
-  current = 0
-  toggle(index: number) {
-    console.log(index);
-    this.current = index
-    this.$emit('update:value',this.current)
+
+  select(tag: TagItem) {
+    this.$emit('update:selectedTag', tag);
   }
-
-
 }
 </script>
 
@@ -47,7 +44,7 @@ export default class Tags extends Vue {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 22px;
         span {
           height: 44px;
           width: 44px;
@@ -57,7 +54,7 @@ export default class Tags extends Vue {
           justify-content: center;
           align-items: center;
           margin-bottom: 5px;
-          &.active{
+          &.selected{
             background-color: #fece0c;
           }
           svg {
@@ -67,7 +64,6 @@ export default class Tags extends Vue {
         }
       }
     }
-
   }
 
 </style>

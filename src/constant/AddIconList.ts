@@ -1,10 +1,4 @@
-const IconConst = [
-    {name: 'shop',value: '购物'},
-    {name: 'car',value: '交通'},
-    {name: 'dinner',value: '聚餐'},
-    {name: 'money',value: '转账'},
-    {name: 'wages',value: '工资'},
-    {name: 'parttime',value: '兼职'},
+const addIconList = [
     {name: 'Bonus',value: '奖金'},
     {name: 'stock',value: '股票'},
     {name: 'air',value: '旅行'},
@@ -20,13 +14,14 @@ const IconConst = [
     {name: 'house',value: '房租'},
     {name: 'old',value: '长辈'},
     {name: 'paper',value: '日用品'},
-    {name: 'smoke',value: '研究'},
+    {name: 'smoke',value: '烟酒'},
     {name: 'sociality',value: '社交'},
     {name: 'telphone',value: '话费'},
     {name: 'vegetable',value: '蔬菜'},
     {name: 'sing',value: 'K歌'},
+    {name: 'shop',value: '购物'},
+    {name: 'car',value: '交通'},
+    {name: 'dinner',value: '聚餐'},
+
 ]
-export  default  IconConst
-
-
-
+export default addIconList

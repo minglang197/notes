@@ -27,12 +27,13 @@ import {Component} from 'vue-property-decorator';
 @Component
 export default class NumberPad extends Vue{
   output = '0'
+
   inputContent(event: MouseEvent){
     const buttons = (event.target as HTMLButtonElement)
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const input = buttons.textContent!
-    if(this.output.length === 8){
-      window.alert("只支持八位数")
+    if(this.output.length === 6){
+      window.alert("只支持六位数")
       return;
     }
     if(this.output === '0') {
@@ -59,7 +60,17 @@ export default class NumberPad extends Vue{
     this.output = '0'
   }
   ok(){
+    if(this.output === '0') {
+      window.alert("请输入正确的钱数")
+      return this.output = '0'
+    }
+    if(this.output === '0.') {
+      window.alert("请输入正确的钱数")
+      return this.output = '0'
+    }
     this.$emit('update:value',this.output)
+    this.$emit('submit',this.output)
+    this.$router.replace('/bill')
   }
 }
 </script>
@@ -109,10 +120,6 @@ export default class NumberPad extends Vue{
       &:nth-child(16),&:nth-child(12){
         background: darken($bg,4*6%);
       }
-
-
-
-
     }
   }
 }

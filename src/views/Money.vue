@@ -1,9 +1,8 @@
 <template>
   <div class="money">
-    {{record}}
-    <NumberPad @update:value="onUpdateAmount"></NumberPad>
+    <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"></NumberPad>
     <Notes @update:value="onUpdateNote"></Notes>
-    <Tags :tag-list="dataSource" @update:value="onUpdateTags"></Tags>
+    <Tags :tag-list="dataSource" :selected-tag.sync="record.tags"></Tags>
     <Type :value.sync = 'record.types' ></Type>
   </div>
 </template>
@@ -15,34 +14,39 @@ import Tags from '@/components/moneys/Tags.vue';
 import Notes from '@/components/moneys/Notes.vue';
 import NumberPad from '@/components/moneys/NumberPad.vue';
 import Type from '@/components/moneys/Type.vue';
-import IconConst from '@/constant/IconConst';
-type Record= {
-    tags: TagItem;
-    notes: string;
-    types: string;
-    amounts: string;
-}
+import RecordIcon from '@/constant/IconConstant';
 
-@Component({components: {Type,Tags,Notes,NumberPad}})
 
-export default class Money extends Vue{
-  dataSource= IconConst
-  record: Record = {
-    tags: {name: 'shop',value: '购物'},
+@Component({components: {Type,Tags,Notes,NumberPad},
+})
+
+export default class Money extends Vue {
+  dataSource = RecordIcon
+
+  record: RecordItem = {
+    tags: {name: 'shop', value: '购物'},
     notes: '',
     types: '-',
-    amounts: '0',
-
+    amounts: 0,
+    createdAt: '',
+    id: 0,
   }
-  onUpdateNote(value: string){
+  get recordList() {
+    return this.$store.state.recordList;
+  }
+
+  onUpdateNote(value: string) {
     this.record.notes = value
   }
-  onUpdateAmount(value: string){
-    this.record.amounts = value
+
+  onUpdateAmount(value: string) {
+    this.record.amounts = parseFloat(value)
   }
-  onUpdateTags(value: TagItem){
-    this.record.tags = value
+
+  saveRecord() {
+    this.$store.commit('createRecord', this.record)
   }
+
 }
 </script>
 
