@@ -56,14 +56,10 @@ export default class Bill extends Vue {
   get recordList() {
     return this.$store.state.recordList;
   }
-// created(){
-//     return this.$store.state.recordList;
-// }
 
   get groupedList() {
     const {recordList} = this;
-    // const recordList = this.recordList
-    if (recordList.length === -1) {
+    if (recordList.length === 0) {
       return [];
     }
     const newList = clone(recordList)

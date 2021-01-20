@@ -8,39 +8,51 @@
             <span :class="type === '+' && 'selected'" @click = "select('+')">收入</span>
           </div>
         </div>
-        <div v-if="type === '-'">
-          <Chart :options="x"></Chart>
-          <hr>
-          <div class="types-top">
-            <p>支出排行榜</p>
-            <ul>
-              <li >
-                <span class="wrapper">
-                  <span class="wrapper-icon"><Icons :name="getExpend().tags.name"></Icons></span>
-                  <span class="wrapper-value">{{getExpend().tags.value}}</span>
-                </span>
-                <span class="number">{{getExpend().amounts}}</span>
-              </li>
-            </ul>
+        <div>
+          <div v-if="type === '-'">
+            <Chart :options="x"></Chart>
+            <hr>
+            <div class="types-top">
+              <p>支出排行榜</p>
+              <ul v-if="recordList.length > 0">
+                <li>
+                  <span class="wrapper">
+                    <span class="wrapper-icon"><Icons :name="getExpend().tags.name"></Icons></span>
+                    <span class="wrapper-value">{{getExpend().tags.value}}</span>
+                  </span>
+                  <span class="number">{{getExpend().amounts}}</span>
+
+                </li>
+              </ul>
+              <div v-else class="noResult">
+                <Icons name="records"></Icons>
+                <span>还没有记录哦，快去记一笔吧</span>
+            </div>
 
           </div>
-        </div>
-        <div v-else>
-          <Chart :options="x"></Chart>
-          <hr>
-          <div class="types-top">
-            <p>收入排行榜</p>
-            <ul>
-              <li >
-                <span class="wrapper">
-                  <span class="wrapper-icon"><Icons :name="getIncome().tags.name"></Icons></span>
-                  <span class="wrapper-value">{{getIncome().tags.value}}</span>
-                </span>
-                <span class="number">{{getIncome().amounts}}</span>
-              </li>
-            </ul>
           </div>
-      </div>
+          <div v-else>
+            <Chart :options="x"></Chart>
+            <hr>
+            <div class="types-top">
+              <p>收入排行榜</p>
+              <ul v-if="recordList.types === '+'">
+                <li >
+                  <span class="wrapper">
+                    <span class="wrapper-icon"><Icons :name="getIncome().tags.name"></Icons></span>
+                    <span class="wrapper-value">{{getIncome().tags.value}}</span>
+                  </span>
+                  <span class="number">{{getIncome().amounts}}</span>
+
+                </li>
+              </ul>
+              <div v-else class="noResult">
+                <Icons name="records"></Icons>
+                <span>还没有记录哦，快去记一笔吧</span>
+              </div>
+            </div>
+        </div>
+        </div>
       </div>
     </Layout>
   </div>
@@ -64,7 +76,7 @@ export default class Echart extends Vue {
   }
    getExpend() {
     const arr = this.recordList.filter((r: any) => r.types==='-')
-    let max = arr[0].amounts
+    let max = arr[0].amounts || 1
     for(let i = 0;i<arr.length;i++) {
       if(max < arr[i].amounts) {
         max = arr[i].amounts
@@ -183,6 +195,23 @@ export default class Echart extends Vue {
           }
           .number {
           }
+        }
+
+      }
+      .noResult {
+        display: flex;
+        padding-top: 20px;
+        font-size: 14px;
+        flex-direction: column;
+        align-items: center;
+        svg {
+          height: 40px;
+          width: 40px;
+          color: #666;
+        }
+        span {
+          padding-top: 20px;
+          color: #999;
         }
       }
     }
